@@ -34,10 +34,6 @@
   :type 'string
   :group 'rego)
 
-;; (defvar rego-mode-map
-;;   (make-sparse-keymap))
-
-
 ;;;; Syntax highlighting
 
 ;; Some regular syntax matching sourced from
@@ -113,6 +109,9 @@
 	  (set-window-start window-start))
       (mesage "opa fmt: %s" (with-current-buffer buf (buffer-string))))
     (kill-buffer buf)))
+
+(defvar rego-mode-map
+  (make-sparse-keymap))
 
 ;;;###autoload
 (define-derived-mode rego-mode prog-mode "Rego"
