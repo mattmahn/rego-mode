@@ -34,13 +34,6 @@
   :type 'string
   :group 'rego)
 
-(define-minor-mode rego-format-on-save-mode
-  "Run `rego-format-buffer' before saving current buffer."
-  :group 'rego
-  (if rego-format-on-save-mode
-      (add-hook 'before-save-hook #'rego-format-buffer nil t)
-    (remove-hook 'before-save-hook #'rego-format-buffer t)))
-
 ;; (defvar rego-mode-map
 ;;   (make-sparse-keymap))
 
@@ -101,6 +94,7 @@
       (mesage "opa fmt: %s" (with-current-buffer buf (buffer-string))))
     (kill-buffer buf)))
 
+;;;###autoload
 (define-derived-mode rego-mode prog-mode "Rego"
   "Major mode for editing Rego policy files."
   (setq-local font-lock-defaults '(rego-mode-font-lock-keywords))
@@ -109,6 +103,13 @@
   (set-syntax-table rego-mode-syntax-table)
   (add-hook 'completion-at-point-functions 'rego-completion-at-point nil 'local)
   )
+
+(define-minor-mode rego-format-on-save-mode
+  "Run `rego-format-buffer' before saving current buffer."
+  :group 'rego
+  (if rego-format-on-save-mode
+      (add-hook 'before-save-hook #'rego-format-buffer nil t)
+    (remove-hook 'before-save-hook #'rego-format-buffer t)))
 
 (provide 'rego-mode)
 
