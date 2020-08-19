@@ -70,7 +70,7 @@
     `( ;; NOTE: oder matters; once colored, it won't change
       (,x-keywords-regexp . 'rego-keyword-face)
       (,x-constants-regexp . 'rego-constant-face)
-      ("-?\\(?:0\\|[1-9][[:digit:]]*\\)\\(?:\\(?:\\.[[:digit:]]+\\)?\\(?:[eE][+-]?[[:digit:]]+\\)?\\)?" . 'rego-constant-face) ; numbers
+      ("\\<-?\\(?:0\\|[1-9][[:digit:]]*\\)\\(?:\\(?:\\.[[:digit:]]+\\)?\\(?:[eE][+-]?[[:digit:]]+\\)?\\)?\\>" . 'rego-constant-face) ; numbers
       ("\\([a-zA-Z_][a-zA-Z_0-9]*\\)(" 1 'rego-function-call-face) ; function calls & definitions
       ("`[^`]*`" . 'rego-raw-string-face) ; raw string
       )))
