@@ -40,25 +40,43 @@
 
 ;;;; Syntax highlighting
 
-;; Some regular syntaxing matching sourced from
+;; Some regular syntax matching sourced from
 ;; the VSCode OPA plugin
 ;; (https://github.com/open-policy-agent/vscode-opa/blob/master/syntaxes/Rego.tmLanguage)
 ;; or the Rego policy reference doc
 ;; (https://www.openpolicyagent.org/docs/latest/policy-reference/)
 
+(defface rego-constant-face '((t :inherit (font-lock-constant-face)))
+  "Face for constants."
+  :group 'rego)
+
+(defface rego-function-call-face '((t :inherit (font-lock-function-name-face)))
+  "Face for function calls."
+  :group 'rego)
+
+(defface rego-keyword-face '((t :inherit (font-lock-keyword-face)))
+  "Face for keywords."
+  :group 'rego)
+
+(defface rego-raw-string-face '((t :inherit (font-lock-string-face)))
+  "Face for raw, backtick-delimited strings."
+  :group 'rego)
+
 (defconst rego-mode-constants '("false" "null" "true"))
+
 (defconst rego-mode-keywords '("as" "default" "else" "import" "package" "not" "with"))
+
 (defconst rego-mode-font-lock-keywords
   (let* (
 	 (x-keywords-regexp (regexp-opt rego-mode-keywords 'words))
 	 (x-constants-regexp (regexp-opt rego-mode-constants 'words))
 	 )
     `( ;; NOTE: oder matters; once colored, it won't change
-      (,x-keywords-regexp . font-lock-keyword-face)
-      (,x-constants-regexp . font-lock-constant-face)
-      ("-?\\(?:0\\|[1-9][[:digit:]]*\\)\\(?:\\(?:\\.[[:digit:]]+\\)?\\(?:[eE][+-]?[[:digit:]]+\\)?\\)?" . font-lock-constant-face) ; numbers
-      ("\\([a-zA-Z_][a-zA-Z_0-9]*\\)(" 1 font-lock-function-name-face) ; function calls & definitions
-      ("`[^`]*`" . font-lock-string-face) ; raw string
+      (,x-keywords-regexp . 'rego-keyword-face)
+      (,x-constants-regexp . 'rego-constant-face)
+      ("-?\\(?:0\\|[1-9][[:digit:]]*\\)\\(?:\\(?:\\.[[:digit:]]+\\)?\\(?:[eE][+-]?[[:digit:]]+\\)?\\)?" . 'rego-constant-face) ; numbers
+      ("\\([a-zA-Z_][a-zA-Z_0-9]*\\)(" 1 'rego-function-call-face) ; function calls & definitions
+      ("`[^`]*`" . 'rego-raw-string-face) ; raw string
       )))
 
 (defvar rego-mode-syntax-table
@@ -67,6 +85,8 @@
     (modify-syntax-entry ?\n ">" syn-table)
     syn-table)
   "Syntax table for `rego-mode'.")
+
+;;;;
 
 (define-abbrev-table 'rego-mode-abbrev-table nil
   "Abbrev table used while in `rego-mode'.")

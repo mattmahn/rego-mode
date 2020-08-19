@@ -4,6 +4,7 @@ rego-mode is an Emacs major mode for [Rego](https://www.openpolicyagent.org/docs
 # Features
 
 - [x] syntax highlighting
+	- [x] Customizable faces for each
 - [x] run `opa fmt` on save to format file: `(add-hook 'rego-mode-hook #'rego-format-on-save-mode)`
 - [ ] highlight syntax errors in file
 - [ ] upload file to [OPA Playground](https://play.openpolicyagent.org/)
