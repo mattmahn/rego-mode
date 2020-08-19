@@ -77,7 +77,7 @@
   (let* ((bds (bounds-of-thing-at-point 'symbol))
 	 (start (car bds))
 	 (end (cdr bds)))
-    `(,start ,end ,rego-mode-keywords . nil)))
+    `(,start ,end ,`(,@rego-mode-constants ,@rego-mode-keywords) . nil)))
 
 (defun rego-format-buffer ()
   "Rewrite the current buffer in the canonical format using `opa fmt'."
